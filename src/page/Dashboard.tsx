@@ -2,7 +2,7 @@ import { useDash } from "../hooks/sideDashContext";
 import { Overview } from "./Overview";
 import { Upcoming } from "./Upcoming";
 import { History } from "./History";
-import { AddShifts } from "../components/AddShifts";
+import { AddShifts } from "./AddShifts";
 
 export const Dashboard = () => {
   const { active } = useDash();

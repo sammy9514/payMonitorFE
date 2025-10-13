@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { ChartComp } from "../components/Chart";
 import data from "../data.json";
 import { useDash } from "../hooks/sideDashContext";
 
 export const Overview = () => {
   const { setActive } = useDash();
+  const navigate = useNavigate();
   return (
     <div className="w-full flex justify-center ">
       <div className="w-[90%] mt-6  ">
@@ -11,7 +13,7 @@ export const Overview = () => {
           <h1 className="text-[40px] font-semibold ">This Week</h1>
           <button
             className="text-[20px] cursor-pointer"
-            onClick={() => setActive("Add shifts")}
+            onClick={() => navigate("/addshift")}
           >
             +Add shifts
           </button>

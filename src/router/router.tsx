@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Dashboard } from "../page/Dashboard";
 import { Layout } from "../static/Layout";
+import { AddShifts } from "../page/AddShifts";
 
 export const router = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "/addshift",
+        element: <AddShifts />,
       },
     ],
   },
