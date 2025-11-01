@@ -1,11 +1,79 @@
 import { useNavigate } from "react-router-dom";
 import { ChartComp } from "../components/Chart";
 import data from "../data.json";
-import { useDash } from "../hooks/sideDashContext";
+import { useEffect, useState } from "react";
+import { createPayroll, getPayroll } from "../api/payrollApi";
+// import { useDash } from "../hooks/sideDashContext";
 
 export const Overview = () => {
-  const { setActive } = useDash();
+  // const { setActive } = useDash();
   const navigate = useNavigate();
+  const [payData, setPayData] = useState<any>({});
+  // const [formatStartDate, setFormatStartDate] = useState
+
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   const result: any = await getPayroll();
+    //   console.log(result);
+    //   const autoResult = result[result.length - 1];
+
+    //   setPayData(autoResult);
+    // };
+    // fetchData();
+
+    const fetchData = async () => {
+      const result: any = await getPayroll();
+      console.log(result);
+
+      // Get current week's payroll instead of just the last one
+      const currentDate = new Date();
+      const currentWeekPayroll = result.find((payroll: any) => {
+        const startDate = new Date(payroll.startDate);
+        const endDate = new Date(payroll.endDate);
+        return currentDate >= startDate && currentDate <= endDate;
+      });
+
+      // If no current week payroll, fall back to the most recent one
+      setPayData(currentWeekPayroll || result[0]);
+    };
+    fetchData();
+  }, []);
+  // console.log(payData.shift);
+
+  const startDate = new Date(payData?.startDate);
+  const newStartDate = startDate.toLocaleDateString("en-GB", {
+    month: "short",
+    day: "numeric",
+  });
+
+  const endDate = new Date(payData?.endDate);
+  const newEndDate = endDate.toLocaleDateString("en-GB", {
+    month: "short",
+    day: "numeric",
+  });
+  const payDate = new Date(payData?.payDay);
+  const newPayDate = payDate.toLocaleDateString("en-GB", {
+    month: "short",
+    day: "numeric",
+  });
+
+  const formatDate = (date: any) => {
+    const newDate = new Date(date);
+    const formatDate = newDate.getDay();
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const day = days[formatDate];
+
+    return day;
+  };
+
   return (
     <div className="w-full flex justify-center ">
       <div className="w-[90%] mt-6  ">
@@ -20,15 +88,17 @@ export const Overview = () => {
         </div>
         <div className="grid grid-cols-3 gap-7 mt-[50px] ">
           <div className="w-full h-[250px] rounded-md bg-gray-200 col-span-3 px-8 py-6 flex justify-between ">
-            <h2 className="text-[30px] font-semibold mt-[8px] ">Date-Time</h2>
+            <h2 className="text-[30px] font-semibold mt-[8px] ">
+              {newStartDate} - {newEndDate}
+            </h2>
             <div className="flex gap-5 items-center">
               <div className="w-[280px] h-[160px] bg-[#265598] rounded-[12px] py-9 px-6 text-white  ">
                 <h3 className="font-medium text-[25px] ">Total Earned</h3>
-                <h2 className="font-bold text-[30px] ">£5000.00</h2>
+                <h2 className="font-bold text-[30px] ">{`£${payData?.totalAmount}`}</h2>
               </div>
               <div className="w-[280px] h-[160px] shadow-md rounded-[12px] py-9 px-6 bg-[whitesmoke] ">
                 <h3 className="font-medium text-[25px] ">Next Payday</h3>
-                <h2 className="font-bold text-[30px] ">Oct 13</h2>
+                <h2 className="font-bold text-[30px] ">{newPayDate}</h2>
               </div>
             </div>
           </div>
@@ -37,9 +107,21 @@ export const Overview = () => {
             <div className="h-[370px] ">
               <ChartComp
                 key={JSON.stringify(data)}
-                data={[50, 100, 150, 200, 250, 300, 350]}
-                labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
-                label="Earnings ($)"
+                data={(() => {
+                  // Create array with 7 zeros for each day
+                  const dayTotals = Array(7).fill(0);
+
+                  // Sum up earnings for each day of the week
+                  payData?.shift?.forEach((shift: any) => {
+                    const date = new Date(shift.dateworked);
+                    const dayIndex = date.getDay(); // 0=Sunday, 1=Monday, etc.
+                    dayTotals[dayIndex] += shift.amountEarned;
+                  });
+
+                  return dayTotals;
+                })()}
+                labels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
+                label="Earnings (£)"
                 backgroundColor="#265598"
               />
             </div>
@@ -49,13 +131,17 @@ export const Overview = () => {
               Shift Worked
             </h2>
             <div className="h-[calc(100%-3rem)] overflow-y-auto ">
-              {data.map((item: any, index: number) => (
+              {payData?.shift?.map((item: any, index: number) => (
                 <div
                   key={index}
                   className="mb-3 bg-blue-50 border-l-4 border-[#3b5998] p-4 rounded-lg"
                 >
-                  <h3 className="font-semibold">{item.day}</h3>
-                  <p className="text-gray-600">{item.time}</p>
+                  <h3 className="font-semibold">
+                    {formatDate(item?.dateworked)}
+                  </h3>
+                  <p className="text-gray-600">
+                    {item.start} - {item.finish}
+                  </p>
                 </div>
               ))}
             </div>

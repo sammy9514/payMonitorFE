@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Input } from "../components/Input";
+import { createShift } from "../api/shiftApi";
 
 interface iData {
   date: string;
@@ -51,10 +52,19 @@ export const AddShifts = () => {
   const hours: any = getHours();
   const earnings = hours * formData.hourlyRate;
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const shift = { ...formData, hours, earnings };
-    console.log(shift);
+    // const shift = { ...formData, hours, earnings };
+    const { date, startTime, endTime, shiftType, hourlyRate } = formData;
+    const result = await createShift({
+      dateworked: date,
+      start: startTime,
+      finish: endTime,
+      break: shiftType,
+      ratePerHour: hourlyRate,
+    });
+    // window.history.back();
+    console.log(result);
   };
 
   return (
@@ -70,7 +80,7 @@ export const AddShifts = () => {
           </div>
         </div>
 
-        <div className="w-[100%] rounded-md shadow-lg bg-white h-[65vh] max-h-full mt-[50px] p-7">
+        <div className="w-[100%] rounded-md shadow-lg bg-white min-h-[65vh] mt-[50px] p-7">
           <form>
             <Input
               label="Date"
