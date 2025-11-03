@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ChartComp } from "../components/Chart";
 import data from "../data.json";
 import { useEffect, useState } from "react";
-import { createPayroll, getPayroll } from "../api/payrollApi";
+import { getPayroll } from "../api/payrollApi";
 // import { useDash } from "../hooks/sideDashContext";
 
 export const Overview = () => {
