@@ -1,6 +1,8 @@
 import axios from "axios";
+import env from "dotenv";
+env.config();
 
-const url = "http://localhost:4424/api/v1/payroll";
+const url: any = process.env.API_URL;
 
 export const createPayroll = async (pastWeeks: number, futureWeek: number) => {
   try {

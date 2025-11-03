@@ -1,5 +1,8 @@
 import axios from "axios";
-const url = "http://localhost:4424/api/v1";
+import env from "dotenv";
+env.config();
+
+const url: any = process.env.API_URL;
 
 export const createShift = async (date: {
   dateworked: string;
