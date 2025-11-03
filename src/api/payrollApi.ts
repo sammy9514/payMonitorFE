@@ -4,7 +4,7 @@ const url = import.meta.env.VITE_API_URL;
 
 export const createPayroll = async (pastWeeks: number, futureWeek: number) => {
   try {
-    const result: any = await axios.post(`${url}/create_payroll`, {
+    const result: any = await axios.post(`${url}/payroll/create_payroll`, {
       pastWeeks: pastWeeks,
       futureWeek: futureWeek,
     });
@@ -15,7 +15,7 @@ export const createPayroll = async (pastWeeks: number, futureWeek: number) => {
 };
 export const getPayroll = async () => {
   try {
-    const result: any = await axios.get(`${url}/get_payroll`);
+    const result: any = await axios.get(`${url}/payroll/get_payroll`);
     return result.data.data;
   } catch (error) {
     console.log(error);
