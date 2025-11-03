@@ -1,8 +1,6 @@
 import axios from "axios";
-import env from "dotenv";
-env.config();
 
-const url: any = process.env.API_URL;
+const url = import.meta.env.VITE_API_URL;
 
 export const createShift = async (date: {
   dateworked: string;
