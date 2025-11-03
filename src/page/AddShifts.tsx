@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input } from "../components/Input";
 import { createShift } from "../api/shiftApi";
+import { useNavigate } from "react-router-dom";
 
 interface iData {
   date: string;
@@ -17,7 +18,7 @@ export const AddShifts = () => {
     day: "",
     startTime: "",
     endTime: "",
-    hourlyRate: 15,
+    hourlyRate: 13.75,
     shiftType: "",
   });
 
@@ -64,8 +65,11 @@ export const AddShifts = () => {
       ratePerHour: hourlyRate,
     });
     // window.history.back();
+    navigate("/");
     console.log(result);
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="w-[calc(100%-350px)] flex justify-center ">

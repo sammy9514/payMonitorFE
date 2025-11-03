@@ -94,7 +94,9 @@ export const Overview = () => {
             <div className="flex gap-5 items-center">
               <div className="w-[280px] h-[160px] bg-[#265598] rounded-[12px] py-9 px-6 text-white  ">
                 <h3 className="font-medium text-[25px] ">Total Earned</h3>
-                <h2 className="font-bold text-[30px] ">{`£${payData?.totalAmount}`}</h2>
+                <h2 className="font-bold text-[30px] ">
+                  {payData ? `£${payData?.totalAmount?.toFixed(2)}` : "£0"}
+                </h2>
               </div>
               <div className="w-[280px] h-[160px] shadow-md rounded-[12px] py-9 px-6 bg-[whitesmoke] ">
                 <h3 className="font-medium text-[25px] ">Next Payday</h3>
