@@ -10,7 +10,7 @@ export const createShift = async (date: {
   ratePerHour: number;
 }) => {
   try {
-    const request = await axios.post(`${url}/create_shift`, {
+    const request = await axios.post(`${url}/api/v1/create_shift`, {
       dateworked: date.dateworked,
       start: date.start,
       finish: date.finish,
