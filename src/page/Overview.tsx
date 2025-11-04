@@ -8,8 +8,9 @@ import { getPayroll } from "../api/payrollApi";
 export const Overview = () => {
   // const { setActive } = useDash();
   const navigate = useNavigate();
-  const [payData, setPayData] = useState<any>({});
+  const [payData, setPayData] = useState<any>(null);
   // const [formatStartDate, setFormatStartDate] = useState
+  console.log(payData);
 
   useEffect(() => {
     // const fetchData = async () => {
@@ -95,9 +96,7 @@ export const Overview = () => {
               <div className="w-[280px] h-[160px] bg-[#265598] rounded-[12px] py-9 px-6 text-white  ">
                 <h3 className="font-medium text-[25px] ">Total Earned</h3>
                 <h2 className="font-bold text-[30px] ">
-                  {payData === null
-                    ? `£${payData?.totalAmount?.toFixed(2)}`
-                    : "£0"}
+                  {payData ? `£${payData?.totalAmount?.toFixed(2)}` : "£0"}
                 </h2>
               </div>
               <div className="w-[280px] h-[160px] shadow-md rounded-[12px] py-9 px-6 bg-[whitesmoke] ">

@@ -15,7 +15,7 @@ export const createPayroll = async (pastWeeks: number, futureWeek: number) => {
 };
 export const getPayroll = async () => {
   try {
-    const result: any = await axios.get(`${url}/payroll/get_payroll`);
+    const result: any = await axios.get(`${url}/api/v1/payroll/get_payroll`);
     return result.data.data;
   } catch (error) {
     console.log(error);
