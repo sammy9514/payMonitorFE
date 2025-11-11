@@ -3,7 +3,7 @@ import { ChartComp } from "../components/Chart";
 import data from "../data.json";
 import { useEffect, useState } from "react";
 import { getPayroll } from "../api/payrollApi";
-import OverviewSkeleton from "../components/overviewSkeleton";
+import OverviewSkeleton from "../components/OverviewSkeleton";
 // import { useDash } from "../hooks/sideDashContext";
 
 export const Overview = () => {
