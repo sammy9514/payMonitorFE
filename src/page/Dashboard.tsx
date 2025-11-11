@@ -22,8 +22,6 @@ export const Dashboard = () => {
     }
   };
   return (
-    <div className="w-[calc(100%-350px)] flex justify-center">
-      {renderDash()}
-    </div>
+    <div className="w-full lg:w-full flex justify-center">{renderDash()}</div>
   );
 };

@@ -3,6 +3,7 @@ import { ChartComp } from "../components/Chart";
 import data from "../data.json";
 import { useEffect, useState } from "react";
 import { getPayroll } from "../api/payrollApi";
+import OverviewSkeleton from "../components/overviewSkeleton";
 // import { useDash } from "../hooks/sideDashContext";
 
 export const Overview = () => {
@@ -13,14 +14,14 @@ export const Overview = () => {
   console.log(payData);
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const result: any = await getPayroll();
-    //   console.log(result);
-    //   const autoResult = result[result.length - 1];
+    //   const fetchData = async () => {
+    //     const result: any = await getPayroll();
+    //     console.log(result);
+    //     const autoResult = result[result.length - 1];
 
-    //   setPayData(autoResult);
-    // };
-    // fetchData();
+    //     setPayData(autoResult);
+    //   };
+    //   fetchData();
 
     const fetchData = async () => {
       const result: any = await getPayroll();
@@ -75,7 +76,7 @@ export const Overview = () => {
     return day;
   };
 
-  return (
+  return payData ? (
     <div className="w-full flex justify-center ">
       <div className="w-[90%] mt-6  ">
         <div className="flex justify-between items-center ">
@@ -88,24 +89,30 @@ export const Overview = () => {
           </button>
         </div>
         <div className="grid grid-cols-3 gap-7 mt-[50px] ">
-          <div className="w-full h-[250px] rounded-md bg-gray-200 col-span-3 px-8 py-6 flex justify-between ">
-            <h2 className="text-[30px] font-semibold mt-[8px] ">
+          <div className="w-full h-[250px] rounded-md bg-gray-200 col-span-3 px-8 py-6 md:flex justify-between ">
+            <h2 className="text-[30px] font-semibold md:mt-[8px] my-[15px] ">
               {newStartDate} - {newEndDate}
             </h2>
             <div className="flex gap-5 items-center">
-              <div className="w-[280px] h-[160px] bg-[#265598] rounded-[12px] py-9 px-6 text-white  ">
-                <h3 className="font-medium text-[25px] ">Total Earned</h3>
-                <h2 className="font-bold text-[30px] ">
+              <div className="md:w-[280px] md:h-[160px] w-[50%] h-[100px] bg-[#265598] rounded-[12px]  px-6 text-white flex justify-center flex-col items-start  ">
+                <h3 className="font-medium md:text-[25px] text-[12px] ">
+                  Total Earned
+                </h3>
+                <h2 className="font-bold md:text-[30px] text-[25px] ">
                   {payData ? `£${payData?.totalAmount?.toFixed(2)}` : "£0"}
                 </h2>
               </div>
-              <div className="w-[280px] h-[160px] shadow-md rounded-[12px] py-9 px-6 bg-[whitesmoke] ">
-                <h3 className="font-medium text-[25px] ">Next Payday</h3>
-                <h2 className="font-bold text-[30px] ">{newPayDate}</h2>
+              <div className="md:w-[280px] md:h-[160px] w-[50%] h-[100px] shadow-md rounded-[12px]  px-6 bg-[whitesmoke] flex justify-center items-start flex-col ">
+                <h3 className="font-medium md:text-[25px] text-[12px] ">
+                  Next Payday
+                </h3>
+                <h2 className="font-bold md:text-[30px] text-[25px]  ">
+                  {newPayDate}
+                </h2>
               </div>
             </div>
           </div>
-          <div className="w-full h-[450px] rounded-md bg-gray-200 col-span-2 px-8 py-6 ">
+          <div className="w-full h-[450px] rounded-md bg-gray-200 md:col-span-2 col-span-3 px-8 py-6  ">
             <h2 className="text-[30px] font-semibold ">Weekly Earnings</h2>
             <div className="h-[370px] ">
               <ChartComp
@@ -129,7 +136,7 @@ export const Overview = () => {
               />
             </div>
           </div>
-          <div className="w-full h-[450px] rounded-md bg-gray-200 px-8 py-6 ">
+          <div className="w-full h-[450px] rounded-md bg-gray-200 px-8 py-6 col-span-3 md:col-span-1 ">
             <h2 className="text-xl font-semibold mb-4 sticky top-0 bg-gray-200 pb-2 ">
               Shift Worked
             </h2>
@@ -151,6 +158,10 @@ export const Overview = () => {
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div>
+      <OverviewSkeleton />
     </div>
   );
 };

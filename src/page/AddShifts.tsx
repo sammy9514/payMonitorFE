@@ -72,15 +72,19 @@ export const AddShifts = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-[calc(100%-350px)] flex justify-center ">
+    <div className="w-full flex justify-center ">
       <div className="w-[90%] mt-6  ">
         <div className="flex  gap-5">
           <div onClick={() => window.history.back()} className="mt-3">
             back
           </div>
           <div>
-            <h1 className="font-bold text-[40px]">Add New Shifts</h1>
-            <p className="text-[18px]">Record your work hours and earnings</p>
+            <h1 className="font-bold text-[20px] md:text-[40px]">
+              Add New Shifts
+            </h1>
+            <p className="text-[9px] md:text-[18px]">
+              Record your work hours and earnings
+            </p>
           </div>
         </div>
 

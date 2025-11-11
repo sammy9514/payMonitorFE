@@ -8,7 +8,9 @@ export const Layout = () => {
       <Header />
       <div className="flex  ">
         <Sidebar />
-        <Outlet />
+        <div className="w-[100%]">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
