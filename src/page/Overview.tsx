@@ -80,7 +80,9 @@ export const Overview = () => {
     <div className="w-full flex justify-center ">
       <div className="w-[90%] mt-6  ">
         <div className="flex justify-between items-center ">
-          <h1 className="text-[40px] font-semibold ">This Week</h1>
+          <h1 className="text-[25px] md:text-[40px] font-semibold ">
+            This Week
+          </h1>
           <button
             className="text-[20px] cursor-pointer"
             onClick={() => navigate("/addshift")}
@@ -90,7 +92,7 @@ export const Overview = () => {
         </div>
         <div className="grid grid-cols-3 gap-7 mt-[50px] ">
           <div className="w-full h-[250px] rounded-md bg-gray-200 col-span-3 px-8 py-6 md:flex justify-between ">
-            <h2 className="text-[30px] font-semibold md:mt-[8px] my-[15px] ">
+            <h2 className="text-[25px] md:text-[30px] font-semibold md:mt-[8px] my-[15px] ">
               {newStartDate} - {newEndDate}
             </h2>
             <div className="flex gap-5 items-center">
@@ -98,7 +100,7 @@ export const Overview = () => {
                 <h3 className="font-medium md:text-[25px] text-[12px] ">
                   Total Earned
                 </h3>
-                <h2 className="font-bold md:text-[30px] text-[25px] ">
+                <h2 className="font-bold md:text-[30px] text-[20px] ">
                   {payData ? `£${payData?.totalAmount?.toFixed(2)}` : "£0"}
                 </h2>
               </div>
@@ -106,15 +108,17 @@ export const Overview = () => {
                 <h3 className="font-medium md:text-[25px] text-[12px] ">
                   Next Payday
                 </h3>
-                <h2 className="font-bold md:text-[30px] text-[25px]  ">
+                <h2 className="font-bold md:text-[30px] text-[20px]  ">
                   {newPayDate}
                 </h2>
               </div>
             </div>
           </div>
-          <div className="w-full h-[450px] rounded-md bg-gray-200 md:col-span-2 col-span-3 px-8 py-6  ">
-            <h2 className="text-[30px] font-semibold ">Weekly Earnings</h2>
-            <div className="h-[370px] ">
+          <div className="w-full h-[350px] md:h-[450px] rounded-md bg-gray-200 md:col-span-2 col-span-3 px-8 py-6  ">
+            <h2 className="text-[25px] md:text-[30px] font-semibold ">
+              Weekly Earnings
+            </h2>
+            <div className="h-[90%]  ">
               <ChartComp
                 key={JSON.stringify(data)}
                 data={(() => {
@@ -136,8 +140,8 @@ export const Overview = () => {
               />
             </div>
           </div>
-          <div className="w-full h-[450px] rounded-md bg-gray-200 px-8 py-6 col-span-3 md:col-span-1 ">
-            <h2 className="text-xl font-semibold mb-4 sticky top-0 bg-gray-200 pb-2 ">
+          <div className="w-full h-[350px] md:h-[450px] rounded-md bg-gray-200 px-8 py-6 col-span-3 md:col-span-1 ">
+            <h2 className="text-[25px] md:text-[30px] font-semibold mb-4 sticky top-0 bg-gray-200 pb-2 ">
               Shift Worked
             </h2>
             <div className="h-[calc(100%-3rem)] overflow-y-auto ">
